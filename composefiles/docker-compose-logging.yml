@@ -1,0 +1,79 @@
+version: "3"
+
+services:
+    
+    elasticsearch:
+        image: elasticsearch
+        networks:
+            - logging
+        volumes:
+            - /var/dockerdata/elasticsearch/data:/usr/share/elasticsearch/data
+        labels:
+            com.docker.stack.namespace: "logging"
+            com.docker.service.name: "elasticsearch"
+        deploy:
+            mode: replicated
+            update_config:
+                parallelism: 1
+                delay: 60s
+            restart_policy:
+                condition: none
+                max_attempts: 5
+            labels:
+                com.docker.stack.namespace: "logging"
+                com.docker.service.name: "elasticsearch"
+
+    logstash:
+        image: logstash:latest
+        depends_on:
+            - elasticsearch
+        ports:
+            - "12201:12201/udp"         
+            - "8080:8082"
+        networks:
+            - logging
+        command: -e "input { gelf {} } output { elasticsearch { hosts => ['elasticsearch']} stdout {} }"
+        labels:
+            com.docker.stack.namespace: "logging"
+            com.docker.service.name: "logstash"
+        deploy:
+            mode: replicated
+            update_config:
+                parallelism: 1
+                delay: 60s
+            restart_policy:
+                condition: none
+                max_attempts: 5
+            labels:
+                com.docker.stack.namespace: "logging"
+                com.docker.service.name: "logstash"
+
+    kibana:
+        image: kibana
+        depends_on:
+            - elasticsearch        
+        ports:
+            - "5601:5601"          
+        networks:
+            - logging
+        environment:
+            - ELASTICSEARCH_URL=http://elasticsearch:9200
+        labels:
+            com.docker.stack.namespace: "logging"
+            com.docker.service.name: "kibana"
+        deploy:
+            mode: replicated
+            update_config:
+                parallelism: 1
+                delay: 60s
+            restart_policy:
+                condition: none
+                max_attempts: 5
+            labels:
+                com.docker.stack.namespace: "logging"
+                com.docker.service.name: "kibana"                
+
+networks:
+    logging:
+        external: true
+
