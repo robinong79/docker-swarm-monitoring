@@ -92,7 +92,7 @@ services:
             - monitoring
         volumes:
             - /var/dockerdata/alertmanager/alertmanagerconfig.yml:/etc/alertmanager/alertmanagerconfig.yml
-            - /var/dockerdata/alertmanager/data:alertmanager/data
+            - /var/dockerdata/alertmanager/data:/etc/alertmanager/data
         command: [-config.file=/etc/alertmanager/alertmanagerconfig.yml,-storage.path=/alertmanager/data]
         labels:
             com.docker.stack.namespace: "monitoring"
