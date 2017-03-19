@@ -1,7 +1,7 @@
 # docker-swarm-monitoring
 Monitoring Docker Swarm with Prometheus and ELK stack.
 
-This repository will describe and publish our setup of monitoring a Docker Swarm with the help of the ELK repository and Prometheus with it's scrapers.
+This repository describes and publishes our setup of monitoring a Docker Swarm with the help of the ELK repository and Prometheus with it's scrapers.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ This repository will describe and publish our setup of monitoring a Docker Swarm
 
 ## Used components
 
-We have splitted up the monitoring into 2 basic parts:
+We have split up the monitoring into 2 basic parts:
 
 #### Monitoring Stack
 
@@ -54,14 +54,14 @@ $ docker network create -d overlay logging
 
 #### Compose files
 
-Make sure to look through the compose files for the volume mappings.
-In this example all is mapped to /var/dockerdata/<servicename>/<directories>. Adjust this to your own liking or create the same structure as used in this example.
+Make sure to look at the compose files for the volume mappings.
+In this example everything is mapped to /var/dockerdata/<servicename>/<directories>. Adjust this to your own liking or create the same structure as used in this example.
 
 #### Config Files
 
 | Config file | Needs to be in <Location> | Remarks |
 | ----- | ----- | ----- | 
-| alertmanagerconfig.yml | /var/dockerdata/alertmanager/ | The alerts go through Slack. Put in your Slack Key and channel name for it to work |
+| alertmanagerconfig.yml | /var/dockerdata/alertmanager/ | The alerts go through Slack. Use your Slack Key and channel name for it to work |
 | elastalert_supervisord.conf | /var/dockerdata/elastalert/config | - |
 | elastalertconfig.yaml | /var/dockerdata/elastalert/config | - |
 | prometheus.yml | /var/dockerdata/prometheus | - |
@@ -72,7 +72,7 @@ In this example all is mapped to /var/dockerdata/<servicename>/<directories>. Ad
 | ----- | ----- | ----- | 
 | alertrules.nodes | /var/dockerdata/prometheus/rules | - |
 | alertrules.task | /var/dockerdata/prometheus/rules | - |
-| elastrules.error.yaml| /var/dockerdata/elastalert/rules | The alerts go through Slack. Put in your Slack Key and channel name for it to work |
+| elastrules.error.yaml| /var/dockerdata/elastalert/rules | The alerts go through Slack. Use your Slack Key and channel name for it to work |
 
 
 ## Installation
@@ -120,4 +120,4 @@ Basilio Vera's repo's (https://hub.docker.com/u/basi/) have been used for inform
 Also using his version of Node-Exporter and some alert files so we have access to HOST_NAME and some startup alerts.
 He made a really nice Grafana Dashboard too which we used as a base. You can check it out here (https://grafana.net/dashboards/609).
 
-The file are free to use and you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation.
+The files are free to use and you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation.
