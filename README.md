@@ -3,6 +3,12 @@ Monitoring Docker Swarm with Prometheus and ELK stack.
 
 This repository describes and publishes our setup of monitoring a Docker Swarm with the help of the ELK repository and Prometheus with it's scrapers.
 
+## Important note regarding Prometheus 2.x.x
+As of version 2.x.x. of Prometheus they changed the user to nobody. This means that if you use a persistent data directory is has to be chmod'ed to 777.
+In this example this will be the directory /var/dockerdata/prometheus/data.
+
+If you use this repo i.c.m. with the v.1.8.2 yml files you can leave the user as it is. Just make sure to copy and rename the prometheus.v1.8.2.yml file from configs to prometheus.yml.
+
 ## Prerequisites
 
 - Ubuntu (16.04 or higher) or RHEL host(s)
@@ -42,6 +48,13 @@ We have split up the monitoring into 2 basic parts:
 Host setting for ElasticSearch (Look [here](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html) for more information)
 ```
 $ sysctl -w vm.max_map_count=262144
+```
+
+Changing mod of persistent data directory (Only for Prometheus 2.x.x)
+
+
+```
+$ chmod 777 /var/dockerdata/prometheus/data
 ```
 
 #### Docker
@@ -113,6 +126,13 @@ $ docker run \
          ....
          ....
 ```         
+
+## Updates
+
+| Date | Update |
+| ----- | ----- | 
+| 23-02-2018 | Updated repo to work with Prometheus version 2.1.0 |
+
 
 ## Credits and License
 

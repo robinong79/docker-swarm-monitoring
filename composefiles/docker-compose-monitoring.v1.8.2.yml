@@ -3,7 +3,7 @@ version: "3"
 services:
     
     prometheus:
-        image: prom/prometheus:v2.1.0
+        image: prom/prometheus:v1.8.2
         ports:
             - "9090:9090"
         networks:
@@ -12,7 +12,7 @@ services:
             - /var/dockerdata/prometheus/data:/prometheus
             - /var/dockerdata/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
             - /var/dockerdata/prometheus/rules:/etc/prometheus-rules
-        command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.console.libraries=/etc/prometheus/console_libraries --web.console.templates=/etc/prometheus/consoles"
+        command: "-config.file=/etc/prometheus/prometheus.yml -alertmanager.url http://alertmanager:9093 -storage.local.path=/prometheus -web.console.libraries=/etc/prometheus/console_libraries -web.console.templates=/etc/prometheus/consoles"
         labels:
             com.docker.stack.namespace: "monitoring"
             com.docker.service.name: "prometheus"
