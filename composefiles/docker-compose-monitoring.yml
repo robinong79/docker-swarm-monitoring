@@ -174,6 +174,38 @@ services:
                 com.docker.stack.namespace: "monitoring"
                 com.docker.service.name: "grafana"
 
+    prom2teams:
+        image: robinong79/prom2teams:dev
+        ports:
+            - "8089:8089"        
+        ports:
+            - "8089:8089"
+        networks:
+            - monitoring
+        environment:
+            - PROM2TEAMS_HOST=0.0.0.0
+            - PROM2TEAMS_PORT=8089
+            - PROM2TEAMS_LOGLEVEL=INFO
+            - PROM2TEAMS_CONNECTOR=<YOUR MS TEAMS WEBHOOK>
+        labels:
+            com.docker.stack.namespace: "monitoring"
+            com.docker.service.name: "prom2teams"
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints: [node.platform.OS == linux]            
+            update_config:
+                parallelism: 1
+                delay: 60s
+            restart_policy:
+                condition: on-failure
+                max_attempts: 5
+            labels:
+                com.docker.stack.namespace: "monitoring"
+                com.docker.service.name: "prom2teams"
+
+
 networks:
     logging:
         external: true

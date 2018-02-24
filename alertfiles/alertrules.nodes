@@ -36,3 +36,15 @@ groups:
     annotations:
       summary: "LOW DISK SPACE WARING: NODE {{ $labels.host }}"
       description: "More than 80% of disk used. Disk usage {{ humanize $value }} GB."
+
+  - alert: msteamstestrobin
+    expr: node_procs_blocked{instance="10.0.0.55:9100",job="node-exporter"}==0
+    for: 10s
+    labels:
+      alert: msteams    
+    annotations:
+      summary: "test robin msteams docker"
+      description: "jaja lekkah"
+
+      
+

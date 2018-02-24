@@ -84,7 +84,7 @@ In this example everything is mapped to /var/dockerdata/<servicename>/<directori
 
 | Config file | Needs to be in <Location> | Remarks |
 | ----- | ----- | ----- | 
-| alertmanagerconfig.yml | /var/dockerdata/alertmanager/ | The alerts go through Slack. Use your Slack Key and channel name for it to work |
+| alertmanagerconfig.yml | /var/dockerdata/alertmanager/ | The alerts go through Slack/MS Teams. Use your Slack Key and Slack channel name and MSTeams Webhook URL for it to work |
 | elastalert_supervisord.conf | /var/dockerdata/elastalert/config | - |
 | elastalertconfig.yaml | /var/dockerdata/elastalert/config | - |
 | prometheus.yml | /var/dockerdata/prometheus | - |
@@ -135,14 +135,7 @@ $ docker run \
          --log-opt tag="<name of container for filtering in elasticsearch>" \
          ....
          ....
-```         
-
-## Updates
-
-| Date | Update |
-| ----- | ----- | 
-| 23-02-2018 | Updated repo to work with Prometheus version 2.1.0 |
-
+```     
 
 ## Credits and License
 
