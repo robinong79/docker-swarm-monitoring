@@ -49,6 +49,11 @@ We have split up the monitoring into 2 basic parts:
 
 Create the following directories:
 - /var/dockerdata/elasticsearch/data
+- /var/dockerdata/elastalert/logs
+- /var/dockerdata/alertmanager/data
+- /var/dockerdata/grafana
+
+#### Misc
 
 Host setting for ElasticSearch (Look [here](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html) for more information)
 ```

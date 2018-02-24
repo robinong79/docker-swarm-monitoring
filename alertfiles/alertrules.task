@@ -1,15 +1,17 @@
-ALERT high_cpu_usage_on_container
-  IF sum(rate(container_cpu_usage_seconds_total{container_label_com_docker_swarm_task_name=~".+"}[1m])) by (container_label_com_docker_swarm_task_name,instance) * 100 > 10
-  FOR 5m
-  ANNOTATIONS {
-      summary = "HIGH CPU USAGE WARNING: TASK '{{ $labels.container_label_com_docker_swarm_task_name }}' on '{{ $labels.instance }}'",
-      description = "{{ $labels.container_label_com_docker_swarm_task_name }} is using a LOT of CPU. CPU usage is {{ humanize $value}}%.",
-  }
+groups:
+- name: nodes
+  rules:
 
-ALERT container_eating_memory
-  IF sum(container_memory_usage_bytes{container_label_com_docker_swarm_task_name=~".+"}) by (container_label_com_docker_swarm_task_name,instance,container_label_com_docker_swarm_service_name) > 2800000000
-  FOR 5m
-  ANNOTATIONS {
-      summary = "HIGH MEMORY USAGE WARNING: TASK '{{ $labels.container_label_com_docker_swarm_task_name }}' on '{{ $labels.instance }}'",
-      description = "{{ $labels.container_label_com_docker_swarm_service_name }} is eating up a LOT of memory. Memory consumption of {{ $labels.container_label_com_docker_swarm_service_name }} is at {{ humanize $value}}.",
-  }
+  - alert: high_cpu_usage_on_container
+    expr: sum(rate(container_cpu_usage_seconds_total{container_label_com_docker_swarm_task_name=~".+"}[1m])) by (container_label_com_docker_swarm_task_name,instance) * 100 > 10
+    for: 5m
+    annotations:
+      summary: "HIGH CPU USAGE WARNING: TASK {{ $labels.container_label_com_docker_swarm_task_name }} on {{ $labels.instance }}"
+      description: "{{ $labels.container_label_com_docker_swarm_task_name }} is using a LOT of CPU. CPU usage is {{ humanize $value}}%."
+
+  - alert: container_eating_memory
+    expr: sum(container_memory_usage_bytes{container_label_com_docker_swarm_task_name=~".+"}) by (container_label_com_docker_swarm_task_name,instance,container_label_com_docker_swarm_service_name) > 2800000000
+    for: 5m
+    annotations:
+      summary: "HIGH MEMORY USAGE WARNING: TASK {{ $labels.container_label_com_docker_swarm_task_name }} on {{ $labels.instance }}"
+      description: "{{ $labels.container_label_com_docker_swarm_service_name }} is eating up a LOT of memory. Memory consumption of {{ $labels.container_label_com_docker_swarm_service_name }} is at {{ humanize $value}}."
