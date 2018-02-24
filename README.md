@@ -45,6 +45,11 @@ We have split up the monitoring into 2 basic parts:
 
 ## Preparation
 
+#### Directories
+
+Create the following directories:
+- /var/dockerdata/elasticsearch/data
+
 Host setting for ElasticSearch (Look [here](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html) for more information)
 ```
 $ sysctl -w vm.max_map_count=262144
