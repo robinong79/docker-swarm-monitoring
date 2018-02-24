@@ -11,8 +11,8 @@ If you use this repo i.c.m. with the v.1.8.2 yml files you can leave the user as
 
 ## Prerequisites
 
-- Ubuntu (16.04 or higher) or RHEL host(s)
-- Docker v1.13.1 (minimum)
+- Ubuntu (16.04 or higher) or RHEL host(s) or CentOS7 hosts
+- Docker v1.13.1 (minimum) (Latest full run on  17.12.0-ce)
     - Experimental Mode must be set to true (to be able to use "docker deploy" with compose v3 files)
     - Must run in Swarm Mode
     - 2 overlay networks ("monitoring" and "logging")
@@ -29,6 +29,7 @@ We have split up the monitoring into 2 basic parts:
 | [CAdvisor](https://hub.docker.com/r/google/cadvisor/) | Collecting Container information  |
 | [Node-Exporter](https://hub.docker.com/r/basi/node-exporter/) | Collecting Hardware and OS information |
 | [AlertManager](https://hub.docker.com/r/prom/alertmanager/) | Sending out alerts raised from Prometheus |
+| [Prom2Teams](https://hub.docker.com/r/robinong79/prom2teams/) | Alerter that sends alerts to MSTeams (currently DEV tag till proven) |
 | [Grafana](https://hub.docker.com/r/grafana/grafana/) | Dashboard on top of Prometheus |
 
 #### Logging Stack
