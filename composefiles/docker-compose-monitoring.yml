@@ -56,7 +56,7 @@ services:
                 com.docker.service.name: "cadvisor"
 
     node-exporter:
-        image: basi/node-exporter:v0.1.1
+        image: basi/node-exporter:v1.15.0
         ports:
             - "9100:9100"
         networks:
@@ -68,7 +68,7 @@ services:
             - /sys:/host/sys
             - /:/rootfs
             - /etc/hostname:/etc/hostname
-        command: [ -collector.procfs=/host/proc,-collector.sysfs=/host/proc,-collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)",-collector.textfile.directory=/etc/node-exporter/]
+        command: [--path.procfs=/host/proc,--path.sysfs=/host/sys,--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)",--collector.textfile.directory=/etc/node-exporter/]
         labels:
             com.docker.stack.namespace: "monitoring"
             com.docker.service.name: "node-exporter"
