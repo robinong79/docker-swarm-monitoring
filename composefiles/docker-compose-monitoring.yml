@@ -74,6 +74,10 @@ services:
             com.docker.service.name: "node-exporter"
         deploy:
             mode: global
+            resources:
+                limits:
+                    cpus: '0.10'
+                    memory: 32M           
             update_config:
                 parallelism: 1
                 delay: 60s
