@@ -23,6 +23,32 @@ services:
                 com.docker.stack.namespace: "logging"
                 com.docker.service.name: "elasticsearch"
 
+    curator:
+        image: robinong79/docker-elasticsearch-curator:dev
+        networks:
+            - logging
+        volumes:
+            - /var/dockerdata/curator/curator.yml:/root/.curator/curator.yml
+            - /var/dockerdata/curator/action.yml:/var/curator/action.yml
+        command: " /var/curator/action.yml"            
+        environment:
+            - ELASTICSEARCH_HOST=elasticsearch
+            - ELASTICSEARCH_PORT=9200
+        labels:
+            com.docker.stack.namespace: "logging"
+            com.docker.service.name: "curator"
+        deploy:
+            mode: replicated
+            update_config:
+                parallelism: 1
+                delay: 60s
+            restart_policy:
+                condition: none
+                max_attempts: 5
+            labels:
+                com.docker.stack.namespace: "logging"
+                com.docker.service.name: "curator"                     
+
     logstash:
         image: logstash:latest
         depends_on:

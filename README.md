@@ -38,9 +38,10 @@ We have split up the monitoring into 2 basic parts:
 | [ElasticSearch](https://hub.docker.com/_/elasticsearch/) | Central storage for Logdata |
 | [LogStash](https://hub.docker.com/_/logstash/) | Log formatter and processing pipeline |
 | [ElastAlert](https://hub.docker.com/r/ivankrizsan/elastalert/) | Sending out alerts raised on Logs |
+| [Curator](https://github.com/elastic/curator/) | Cleaning up Indices in Elasticsearch |
 | [Kibana](https://hub.docker.com/_/kibana/) | Dashboard on top of Elasticsearch |
 
-## Schema of the stacks
+## Schema of the stacks *Needs Updating*
 ![stackflow](https://raw.githubusercontent.com/robinong79/docker-swarm-monitoring/master/Monitoring_Logging_Stack.png "Monitoring Logging Stack")
 
 ## Preparation
@@ -52,6 +53,7 @@ Create the following directories:
 - /var/dockerdata/elastalert/logs
 - /var/dockerdata/alertmanager/data
 - /var/dockerdata/grafana
+- /var/dockerdata/curator
 
 #### Misc
 
@@ -88,6 +90,7 @@ In this example everything is mapped to /var/dockerdata/<servicename>/<directori
 | elastalert_supervisord.conf | /var/dockerdata/elastalert/config | - |
 | elastalertconfig.yaml | /var/dockerdata/elastalert/config | - |
 | prometheus.yml | /var/dockerdata/prometheus | - |
+| curator.yml | /var/curator | - |
 
 #### Alert Files
 
@@ -96,6 +99,11 @@ In this example everything is mapped to /var/dockerdata/<servicename>/<directori
 | alertrules.nodes | /var/dockerdata/prometheus/rules | - |
 | alertrules.task | /var/dockerdata/prometheus/rules | - |
 | elastrules.error.yaml| /var/dockerdata/elastalert/rules | The alerts go through Slack. Use your Slack Key and channel name for it to work |
+
+#### Misc files
+| File | Needs to be in <Location> | Remarks |
+| ----- | ----- | ----- |
+| action.yml | /var/curator | - |
 
 
 ## Installation
