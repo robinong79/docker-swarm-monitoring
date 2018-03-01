@@ -11,8 +11,8 @@ If you use this repo i.c.m. with the v.1.8.2 yml files you can leave the user as
 
 ## Prerequisites
 
-- Ubuntu (16.04 or higher) or RHEL host(s)
-- Docker v1.13.1 (minimum)
+- Ubuntu (16.04 or higher) or RHEL host(s) or CentOS7 hosts
+- Docker v1.13.1 (minimum) (Latest full run on  17.12.0-ce)
     - Experimental Mode must be set to true (to be able to use "docker deploy" with compose v3 files)
     - Must run in Swarm Mode
     - 2 overlay networks ("monitoring" and "logging")
@@ -29,6 +29,7 @@ We have split up the monitoring into 2 basic parts:
 | [CAdvisor](https://hub.docker.com/r/google/cadvisor/) | Collecting Container information  |
 | [Node-Exporter](https://hub.docker.com/r/basi/node-exporter/) | Collecting Hardware and OS information |
 | [AlertManager](https://hub.docker.com/r/prom/alertmanager/) | Sending out alerts raised from Prometheus |
+| [Prom2Teams](https://hub.docker.com/r/robinong79/prom2teams/) | Alerter that sends alerts to MSTeams (currently DEV tag till proven) |
 | [Grafana](https://hub.docker.com/r/grafana/grafana/) | Dashboard on top of Prometheus |
 
 #### Logging Stack
@@ -86,7 +87,7 @@ In this example everything is mapped to /var/dockerdata/<servicename>/<directori
 
 | Config file | Needs to be in <Location> | Remarks |
 | ----- | ----- | ----- | 
-| alertmanagerconfig.yml | /var/dockerdata/alertmanager/ | The alerts go through Slack. Use your Slack Key and channel name for it to work |
+| alertmanagerconfig.yml | /var/dockerdata/alertmanager/ | The alerts go through Slack/MS Teams. Use your Slack Key and Slack channel name and MSTeams Webhook URL for it to work |
 | elastalert_supervisord.conf | /var/dockerdata/elastalert/config | - |
 | elastalertconfig.yaml | /var/dockerdata/elastalert/config | - |
 | prometheus.yml | /var/dockerdata/prometheus | - |
@@ -143,14 +144,7 @@ $ docker run \
          --log-opt tag="<name of container for filtering in elasticsearch>" \
          ....
          ....
-```         
-
-## Updates
-
-| Date | Update |
-| ----- | ----- | 
-| 23-02-2018 | Updated repo to work with Prometheus version 2.1.0 |
-
+```     
 
 ## Credits and License
 

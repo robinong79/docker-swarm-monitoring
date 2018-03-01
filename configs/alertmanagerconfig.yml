@@ -8,7 +8,9 @@ route:
   group_interval: 5m
   group_wait: 1m
   routes:
-  - receiver: 'slack'
+  - receiver: 'msteams'
+    match:
+      alert: msteams
 
 receivers:
   - name: 'slack'
@@ -18,4 +20,8 @@ receivers:
         username: 'Prometheus - Alerter'
         channel: '#<CHANNEL_NAME>'
         text: '{{ .CommonAnnotations.summary }} ---> {{ .CommonAnnotations.description }}'
-        icon_emoji: ':dart:'
+
+  - name: "msteams"
+    webhook_configs:
+    - url: 'http://prom2teams:8089'
+      send_resolved: false
