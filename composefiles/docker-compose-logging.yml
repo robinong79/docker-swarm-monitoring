@@ -32,7 +32,7 @@ services:
             - ELASTICSEARCH_PORT=9200
             - INTERVAL_IN_HOURS=12
         volumes:
-            - /mnt/dockerontwikkel/curator:/var/curator
+            - /var/dockerdata/curator:/var/curator
         labels:
             com.docker.stack.namespace: "logging"
             com.docker.service.name: "curator"
