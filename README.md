@@ -7,8 +7,6 @@ This repository describes and publishes our setup of monitoring a Docker Swarm w
 As of version 2.x.x. of Prometheus they changed the user to nobody. This means that if you use a persistent data directory is has to be chmod'ed to 777.
 In this example this will be the directory /var/dockerdata/prometheus/data.
 
-If you use this repo i.c.m. with the v.1.8.2 yml files you can leave the user as it is. Just make sure to copy and rename the prometheus.v1.8.2.yml file from configs to prometheus.yml.
-
 ## Prerequisites
 
 - Ubuntu (16.04 or higher) or RHEL host(s) or CentOS7 hosts
@@ -50,6 +48,7 @@ We have split up the monitoring into 2 basic parts:
 #### Directories
 
 Create the following directories:
+- /var/dockerdata/prometheus
 - /var/dockerdata/elasticsearch/data
 - /var/dockerdata/elastalert/logs
 - /var/dockerdata/alertmanager/data
@@ -81,7 +80,7 @@ $ docker network create -d overlay logging
 #### Compose files
 
 Make sure to look at the compose files for the volume mappings.
-In this example everything is mapped to /var/dockerdata/<servicename>/<directories>. Adjust this to your own liking or create the same structure as used in this example.
+In this example everything is mapped to /var/dockerdata/{servicename}/{directories}. Adjust this to your own liking or create the same structure as used in this example.
 
 #### Config Files
 
@@ -91,7 +90,6 @@ In this example everything is mapped to /var/dockerdata/<servicename>/<directori
 | elastalert_supervisord.conf | /var/dockerdata/elastalert/config | - |
 | elastalertconfig.yaml | /var/dockerdata/elastalert/config | - |
 | prometheus.yml | /var/dockerdata/prometheus | - |
-| curator.yml | /var/curator | - |
 
 #### Alert Files
 
@@ -104,7 +102,7 @@ In this example everything is mapped to /var/dockerdata/<servicename>/<directori
 #### Misc files
 | File | Needs to be in <Location> | Remarks |
 | ----- | ----- | ----- |
-| action.yml | /var/curator | - |
+| action.yml | /var/dockerdata/curator | Action file for Curator |
 
 
 ## Installation
