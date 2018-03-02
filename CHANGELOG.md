@@ -1,5 +1,10 @@
 # Changelog
 
+## 2018-03-02
+### Added
+ - ElasticSearch Curator to clean up indices
+ - Few redo's to README.md
+
 ## 2018-03-01
 ### Added
  - Tagged master branch with v1.0 (Updated to Prom 2.x.x)
