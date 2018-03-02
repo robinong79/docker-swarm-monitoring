@@ -41,7 +41,7 @@ We have split up the monitoring into 2 basic parts:
 | [Kibana](https://hub.docker.com/_/kibana/) | Dashboard on top of Elasticsearch |
 
 ## Schema of the stacks *Needs Updating*
-![stackflow](https://raw.githubusercontent.com/robinong79/docker-swarm-monitoring/master/Monitoring_Logging_Stack.png "Monitoring Logging Stack")
+![stackflow](/Monitoring_Logging_Stack.png "Monitoring Logging Stack")
 
 ## Preparation
 
