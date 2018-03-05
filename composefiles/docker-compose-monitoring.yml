@@ -178,8 +178,6 @@ services:
         image: robinong79/prom2teams:dev
         ports:
             - "8089:8089"        
-        ports:
-            - "8089:8089"
         networks:
             - monitoring
         environment:
