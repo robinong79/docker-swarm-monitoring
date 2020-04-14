@@ -3,7 +3,7 @@ version: "3"
 services:
     
     elasticsearch:
-        image: elasticsearch
+        image: elasticsearch:7.6.2
         networks:
             - logging
         volumes:
@@ -24,7 +24,7 @@ services:
                 com.docker.service.name: "elasticsearch"
 
     curator:
-        image: robinong79/docker-elasticsearch-curator:v1.0
+        image: robinong79/docker-elasticsearch-curator:v2.0
         networks:
             - logging
         environment:
